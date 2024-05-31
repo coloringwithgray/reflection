@@ -1,15 +1,11 @@
 /* CSS file: styles.css */
+/* styles.css */
 
 body, html {
     margin: 0;
     padding: 0;
-    width: 100%;
     height: 100%;
     overflow: hidden;
-    background-color: #000; /* Fallback background color */
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .video-container {
@@ -19,7 +15,7 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: -1;
+    z-index: -1; /* Make sure the video is behind other content */
 }
 
 .background-video {
@@ -31,5 +27,4 @@ body, html {
     width: auto;
     height: auto;
     transform: translate(-50%, -50%);
-    background-size: cover;
 }
