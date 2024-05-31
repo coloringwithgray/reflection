@@ -1,4 +1,3 @@
-/* CSS file: styles.css */
 /* styles.css */
 
 body, html {
@@ -27,4 +26,5 @@ body, html {
     width: auto;
     height: auto;
     transform: translate(-50%, -50%);
+    cursor: pointer; /* Add cursor pointer to indicate clickable area */
 }
