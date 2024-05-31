@@ -12,14 +12,14 @@ body, html {
     width: 100%;
     height: 100%;
     overflow: hidden;
-    z-index: -1; /* Make sure the video is behind other content */
+    z-index: -1; /* Ensure video is behind other content */
 }
 
 .video-container a {
     display: block;
     width: 100%;
     height: 100%;
-    touch-action: none; /* Prevent default touch actions */
+    pointer-events: auto; /* Allow pointer events on the link */
 }
 
 .background-video {
@@ -31,9 +31,9 @@ body, html {
     width: auto;
     height: auto;
     transform: translate(-50%, -50%);
-    cursor: pointer; /* Add cursor pointer to indicate clickable area */
-    transition: opacity 0.3s ease-in-out; /* Add transition for hover effect */
-    pointer-events: none; /* Allow click through video */
+    cursor: pointer; /* Indicate clickable area */
+    transition: opacity 0.3s ease-in-out; /* Smooth opacity transition */
+    pointer-events: none; /* Disable pointer events on the video */
 }
 
 .video-container a:hover .background-video {
