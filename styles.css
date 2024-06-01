@@ -31,8 +31,6 @@ body, html {
     width: auto;
     height: auto;
     transform: translate(-50%, -50%);
-    cursor: pointer; /* Indicate clickable area */
-    transition: opacity 0.3s ease-in-out; /* Smooth opacity transition */
     pointer-events: none; /* Disable pointer events on the video */
 }
 
