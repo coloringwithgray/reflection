@@ -3,7 +3,6 @@ body, html {
     padding: 0;
     height: 100%;
     overflow: hidden;
-    font-family: Arial, sans-serif;
 }
 
 .video-container {
@@ -36,24 +35,4 @@ body, html {
     z-index: 1; /* Ensure the link is on top */
     cursor: pointer;
     opacity: 0; /* Make the link invisible */
-}
-
-.mirror-text {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    text-align: center;
-    z-index: 2; /* Ensure the text is above the overlay link */
-    font-size: 5rem;
-    color: white;
-}
-
-.mirror-text .reflection {
-    display: block;
-    margin-top: 20px;
-    color: rgba(255, 255, 255, 0.5);
-    transform: scaleY(-1);
-    transform-origin: top;
-    filter: blur(2px);
 }
