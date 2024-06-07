@@ -35,4 +35,4 @@ body, html {
     z-index: 1; /* Ensure the link is on top */
     cursor: pointer;
     opacity: 0; /* Make the link invisible */
-}
+} 
