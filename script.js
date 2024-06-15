@@ -15,4 +15,9 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     setTimeout(type, delay);
+
+    // Check if the page is in an iframe or a portal
+    if (window.self !== window.top) {
+        document.body.classList.add('is-portal');
+    }
 });
