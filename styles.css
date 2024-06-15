@@ -51,4 +51,18 @@ body, html {
 #animated-text {
     writing-mode: vertical-rl;
     text-orientation: mixed;
+    background: linear-gradient(90deg, #e0e0e0, #f8f8f8, #c0c0c0, #f8f8f8, #e0e0e0);
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+    animation: shine 2s infinite;
+}
+
+@keyframes shine {
+    0% {
+        background-position: -200%;
+    }
+    100% {
+        background-position: 200%;
+    }
 }
