@@ -65,3 +65,8 @@ body, html {
         background-position: 200%;
     }
 }
+
+/* Hide the link if in an iframe or portal */
+.is-portal #animated-text-link {
+    display: none;
+}
