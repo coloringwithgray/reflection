@@ -40,7 +40,7 @@ body, html {
     transform: translateY(-50%);
     color: white;
     font-size: 3em;
-    text-align: center;
+    text-align: left; /* Align text to the left */
 }
 
 #animated-text-link {
@@ -49,8 +49,6 @@ body, html {
 }
 
 #animated-text {
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
     background: linear-gradient(90deg, #e0e0e0, #f8f8f8, #c0c0c0, #f8f8f8, #e0e0e0);
     background-clip: text;
     -webkit-background-clip: text;
