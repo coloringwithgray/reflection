@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function type() {
         if (index < text.length) {
-            textContainer.innerHTML += text.charAt(index) + "<br>";
+            textContainer.innerHTML += text.charAt(index);
             index++;
             setTimeout(type, speed);
         }
