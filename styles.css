@@ -72,10 +72,26 @@ body, html {
 }
 
 .scroll-prompt {
-    position: absolute;
-    bottom: 10%;
-    left: 5%;
+    position: fixed;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
     font-size: 1.5em;
-    width: 90%;
-    text
+    padding: 20px;
+    box-sizing: border-box;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out, top 0.5s ease-in-out;
+    font-family: 'Lvvvdy', sans-serif;
+}
+
+.scroll-prompt.visible {
+    top: 0;
+    opacity: 1;
+}
