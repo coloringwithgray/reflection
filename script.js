@@ -20,4 +20,16 @@ document.addEventListener("DOMContentLoaded", function() {
     if (window.self !== window.top) {
         document.body.classList.add('is-portal');
     }
+
+    // Handle scroll prompt visibility
+    const scrollPrompt = document.querySelector('.scroll-prompt');
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        if (scrollPosition > windowHeight / 2) {
+            scrollPrompt.classList.add('visible');
+        } else {
+            scrollPrompt.classList.remove('visible');
+        }
+    });
 });
