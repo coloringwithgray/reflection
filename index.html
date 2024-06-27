@@ -1,28 +1,36 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reflections</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <div class="video-container">
-        <video autoplay loop muted playsinline class="background-video">
-            <source src="reflection.mp4" type="video/mp4">
-            <source src="reflection.webm" type="video/webm">
-            <source src="reflection.ogv" type="video/ogg">
-            Your browser does not support the video tag.
-        </video>
-        <div class="text-container">
-            <a href="https://www.instagram.com/coloringwithgray/" target="_blank" id="animated-text-link">
-                <span id="animated-text"></span>
-            </a>
-        </div>
-    </div>
-    <div class="scroll-prompt">
-        <p>Reflections of You is our inaugural fragrance at Coloring with Gray, designed to embody the art of collaboration. This "second skin" scent blends seamlessly with your natural chemistry, creating a unique and personal aroma. While it shines on its own, its true magic happens when it interacts with your skin, developing a fragrance that is distinctly yours. With Reflections of You, you become a co-creator, adding your unique essence to our art.</p>
-    </div>
-    <script src="script.js"></script>
-</body>
-</html>
+document.addEventListener("DOMContentLoaded", function() {
+    const text = "Reflections of (You)";
+    let index = 0;
+    const speed = 250;
+    const delay = 3000;
+    const textContainer = document.getElementById("animated-text");
+
+    function type() {
+        if (index < text.length) {
+            textContainer.innerHTML += text.charAt(index);
+            index++;
+            setTimeout(type, speed);
+        }
+    }
+
+    setTimeout(type, delay);
+
+    if (window.self !== window.top) {
+        document.body.classList.add('is-portal');
+    }
+
+    const scrollPrompt = document.querySelector('.scroll-prompt');
+    window.addEventListener('scroll', function() {
+        const scrollPosition = window.scrollY || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+        console.log("Scroll position:", scrollPosition); // Debugging
+        console.log("Window height:", windowHeight); // Debugging
+        if (scrollPosition > windowHeight / 2) {
+            console.log("Adding visible class"); // Debugging
+            scrollPrompt.classList.add('visible');
+        } else {
+            console.log("Removing visible class"); // Debugging
+            scrollPrompt.classList.remove('visible');
+        }
+    });
+});
