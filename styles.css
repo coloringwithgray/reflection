@@ -70,3 +70,12 @@ body, html {
 .is-portal #animated-text-link {
     display: none;
 }
+
+.scroll-prompt {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    color: white;
+    font-size: 1.5em;
+    width: 90%;
+    text
