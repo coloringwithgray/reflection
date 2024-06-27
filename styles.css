@@ -90,6 +90,3 @@ body, html {
 }
 
 .scroll-prompt.visible {
-    top: 0;
-    opacity: 1;
-}
