@@ -81,7 +81,7 @@ body, html {
     align-items: center;
     justify-content: center;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 2.5em; /* Increased font size */
     padding: 20px;
     box-sizing: border-box;
     opacity: 0;
@@ -90,3 +90,6 @@ body, html {
 }
 
 .scroll-prompt.visible {
+    top: 0;
+    opacity: 1;
+}
