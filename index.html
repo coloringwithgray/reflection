@@ -1,28 +1,51 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reflections</title>
-    <link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reflections</title>
+  <!-- Link to external CSS -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Defer script so it doesn't block HTML parsing -->
+  <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="video-container">
-        <video autoplay loop muted playsinline class="background-video">
-            <source src="reflection.mp4" type="video/mp4">
-            <source src="reflection.webm" type="video/webm">
-            <source src="reflection.ogv" type="video/ogg">
-            Your browser does not support the video tag.
-        </video>
-        <div class="text-container">
-            <a href="https://www.instagram.com/coloringwithgray/" target="_blank" id="animated-text-link">
-                <span id="animated-text"></span>
-            </a>
-        </div>
+  <div class="video-container">
+    <video
+      class="background-video"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+    >
+      <source src="reflection.mp4" type="video/mp4" />
+      <source src="reflection.webm" type="video/webm" />
+      <source src="reflection.ogv" type="video/ogg" />
+      Your browser does not support the video tag.
+    </video>
+
+    <div class="text-container">
+      <a
+        href="https://www.instagram.com/coloringwithgray/"
+        target="_blank"
+        id="animated-text-link"
+      >
+        <span id="animated-text"></span>
+      </a>
     </div>
-    <div class="scroll-prompt">
-        <p>Reflections of You is our inaugural fragrance at Coloring with Gray, designed to embody the art of collaboration. This "second skin" scent blends seamlessly with your natural chemistry, creating a unique and personal aroma. While it shines on its own, its true magic happens when it interacts with your skin, developing a fragrance that is distinctly yours. With Reflections of You, you become a co-creator, adding your unique essence to our art.</p>
-    </div>
-    <script src="script.js"></script>
+  </div>
+
+  <div class="scroll-prompt">
+    <p>
+      Reflections of You is our inaugural fragrance at Coloring with Gray,
+      designed to embody the art of collaboration. This "second skin" scent
+      blends seamlessly with your natural chemistry, creating a unique and
+      personal aroma. While it shines on its own, its true magic happens when
+      it interacts with your skin, developing a fragrance that is distinctly
+      yours. With Reflections of You, you become a co-creator, adding your
+      unique essence to our art.
+    </p>
+  </div>
 </body>
 </html>
