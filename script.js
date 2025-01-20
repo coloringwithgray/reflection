@@ -16,7 +16,6 @@ document.addEventListener("DOMContentLoaded", () => {
       // Once typing is done, reveal the action buttons
       const actionButtons = document.getElementById("action-buttons");
       if (actionButtons) {
-        // Add the 'loaded' class to fade them in (if your CSS uses .loaded)
         actionButtons.classList.add("loaded");
       }
     }
@@ -30,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
     document.body.classList.add("is-portal");
   }
 
-  // 5. Handle scroll prompt fade-in (if you're keeping the scroll prompt)
+  // 5. Handle scroll prompt fade-in (if applicable)
   const scrollPrompt = document.querySelector(".scroll-prompt");
   if (scrollPrompt) {
     window.addEventListener(
@@ -40,14 +39,13 @@ document.addEventListener("DOMContentLoaded", () => {
         const windowHeight =
           window.innerHeight || document.documentElement.clientHeight;
 
-        // Show the scroll prompt after scrolling ~ half the viewport height
         if (scrollPosition > windowHeight / 2) {
           scrollPrompt.classList.add("visible");
         } else {
           scrollPrompt.classList.remove("visible");
         }
       },
-      { passive: true } // Improves scroll performance
+      { passive: true }
     );
   }
 });
