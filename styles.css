@@ -40,7 +40,7 @@ html {
   height: auto;
   transform: translate(-50%, -50%);
   pointer-events: none;
-  object-fit: cover; /* Maintain aspect ratio & fill container */
+  object-fit: cover;
 }
 
 /* ===========================
@@ -61,7 +61,6 @@ html {
   color: white;
 }
 
-/* Shine effect on text */
 #animated-text {
   background: linear-gradient(
     90deg,
@@ -75,7 +74,7 @@ html {
   -webkit-background-clip: text;
   color: transparent;
   animation: shine 2s infinite;
-  letter-spacing: 0.37em; /* Adjust spacing as you like */
+  letter-spacing: 0.37em;
 }
 
 @keyframes shine {
@@ -88,27 +87,46 @@ html {
 }
 
 /* ===========================
-   5. Action Buttons (Buy/Ask)
+   5. Action Buttons Styling
    =========================== */
 #action-buttons {
-  /* Hidden initially, revealed by JS with .loaded */
-  display: none;
+  /* Initially invisible but occupies space */
   opacity: 0;
+  pointer-events: none;
 
-  /* Position them below the text container (60% instead of 50%) */
   position: absolute;
   top: 65%;
   left: 5%;
   transform: translateY(-50%);
-
-  /* Transition for fade-in */
+  
   transition: opacity 1s ease;
 }
 
 #action-buttons.loaded {
-  display: block;  /* Appear on screen */
-  opacity: 1;      /* Fade in */
+  opacity: 1;
+  pointer-events: auto;
 }
 
 #action-buttons a {
-  display: inline-bloc
+  display: inline-block;
+  margin-right: 20px;
+  padding: 10px 20px;
+  text-decoration: none;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.3);
+  border: 2px solid #fff;
+  font-family: 'Lvvvdy', sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: background-color 0.3s ease;
+}
+
+#action-buttons a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* ===========================
+   6. Scroll Prompt Styling (Optional)
+   =========================== */
+/* Your existing scroll prompt CSS remains here */
+/* If not needed, you can comment/remove scroll-prompt related CSS */
