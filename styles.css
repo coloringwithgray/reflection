@@ -1,103 +1,53 @@
-@font-face {
-  font-family: 'Lvvvdy';
-  src: url('Lvvvdy.otf') format('opentype');
-}
+/* =====================
+   ACTION BUTTONS STYLING
+   ===================== */
+#action-buttons {
+  /* Start hidden to fade in later or be shown by JS */
+  display: none;
 
-body,
-html {
-  margin: 0;
-  padding: 0;
-  height: 200%;
-  overflow: auto;
-  font-family: 'Lvvvdy', sans-serif;
-}
-
-.video-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.background-video {
+  /* Position them relative to your text. 
+     If you want them near the text-container, you can do absolute positioning. 
+     Or if you prefer them in normal flow, remove position:absolute 
+     and let them appear under the text naturally. 
+  */
   position: absolute;
-  top: 50%;
-  left: 50%;
-  min-width: 100%;
-  min-height: 100%;
-  width: auto;
-  height: auto;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  object-fit: cover; /* Maintain aspect ratio & fill container */
-}
-
-.text-container {
-  position: absolute;
-  top: 50%;
+  top: 60%; /* Adjust as needed (below your text) */
   left: 5%;
   transform: translateY(-50%);
-  color: white;
-  font-size: 3em;
-  text-align: left;
-}
-
-#animated-text-link {
-  text-decoration: none;
-  color: white;
-}
-
-#animated-text {
-  background: linear-gradient(90deg, #e0e0e0, #f8f8f8, #c0c0c0, #f8f8f8, #e0e0e0);
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  animation: shine 2s infinite;
-  letter-spacing: 0.37em;
-}
-
-@keyframes shine {
-  0% {
-    background-position: -200%;
-  }
-  100% {
-    background-position: 200%;
-  }
-}
-
-.is-portal #animated-text-link {
-  display: none;
-}
-
-/* Scroll prompt container */
-.scroll-prompt {
-  position: fixed;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.8);
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
+  
+  /* Fade-in transition (optional) */
   opacity: 0;
-  transition: opacity 0.5s ease-in-out, top 0.5s ease-in-out;
+  transition: opacity 1s ease;
 }
 
-/* Drastically increased font size for readability */
-.scroll-prompt p {
-  font-size: 2.5em; /* <-- Increase this value as needed */
-  max-width: 80%;
-  margin: 0 auto;
-  line-height: 1.3;
+/* Once you're ready to show them, add a .visible or .loaded class via JS */
+#action-buttons.loaded {
+  display: block;  /* Make sure they appear */
+  opacity: 1;      /* Fade in */
 }
 
-/* Visible state for the scroll prompt */
-.scroll-prompt.visible {
-  top: 0;
-  opacity: 1;
+/* Basic styling for each button link */
+#action-buttons a {
+  display: inline-block;
+  margin-right: 20px;
+  padding: 10px 20px;
+  
+  /* Use your custom font and white text for consistency */
+  font-family: 'Lvvvdy', sans-serif;
+  color: #fff;
+  text-decoration: none;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+
+  /* Subtle border and translucent background to stand out over video */
+  border: 2px solid #fff;
+  background-color: rgba(0, 0, 0, 0.3);
+
+  /* Smooth transitions for hover effects */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover effect: lighten background or invert color */
+#action-buttons a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
 }
