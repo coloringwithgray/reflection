@@ -43,7 +43,11 @@
   <!-- ACTION BUTTONS container -->
   <div id="action-buttons">
     <a href="#" class="buy-now">Buy Now</a>
-    <a href="#" class="ask-questions">Ask Questions</a>
-  </div>
-</body>
-</html>
+    <a href="javascript:void(0);" id="ask-question-btn" class="ask-questions">Ask Questions</a>
+
+<!-- Add the hidden Q&A section at the bottom of the body -->
+<div id="ask-section" style="display: none;">
+  <input type="text" id="question-input" placeholder="Type your question here..." />
+  <button id="submit-question-btn">Submit</button>
+  <div id="answer-output"></div>
+</div>
