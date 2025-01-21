@@ -4,37 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reflections</title>
+  
   <!-- Link to external CSS -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Defer script so it doesn't block HTML parsing -->
+  <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Video Background -->
+  <!-- VIDEO BACKGROUND CONTAINER -->
   <div class="video-container">
-    <video class="background-video" autoplay loop muted playsinline>
+    <video
+      class="background-video"
+      autoplay
+      loop
+      muted
+      playsinline
+      preload="auto"
+    >
       <source src="reflection.mp4" type="video/mp4" />
       <source src="reflection.webm" type="video/webm" />
       <source src="reflection.ogv" type="video/ogg" />
       Your browser does not support the video tag.
     </video>
-  </div>
 
-  <!-- Shining Text and Action Buttons -->
-  <div class="text-container">
-    <div id="animated-text">Reflections of You</div>
-    <div class="action-buttons">
-      <a href="javascript:void(0)" onclick="toggleAskSection()">Ask Questions</a>
-      <!-- Add more buttons like "Buy Now" as needed -->
-    </div>
-    
-    <!-- Q&A Section -->
-    <div id="ask-section">
-      <input type="text" id="question-input" placeholder="Type your question here..." />
-      <button onclick="submitQuestion()">Submit</button>
-      <div id="answer-output"></div>
+    <!-- SHINING TEXT -->
+    <div class="text-container">
+      <a
+        href="https://coloringwithgray.github.io/productpage/"
+        target="_blank"
+        id="animated-text-link"
+      >
+        <span id="animated-text"></span>
+      </a>
     </div>
   </div>
 
-  <!-- Link to external JavaScript -->
-  <script src="script.js"></script>
+  <!-- ACTION BUTTONS container -->
+  <div id="action-buttons">
+    <a href="#" class="buy-now">Buy Now</a>
+    <a href="#" class="ask-questions">Ask Questions</a>
+  </div>
 </body>
 </html>
