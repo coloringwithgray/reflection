@@ -4,46 +4,136 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reflections</title>
-  
-  <!-- Link to external CSS -->
-  <link rel="stylesheet" href="styles.css" />
-
-  <!-- Defer script so it doesn't block HTML parsing -->
-  <script src="script.js" defer></script>
+  <style>
+    /* Basic styles for the video background, text, and Q&A section */
+    body, html {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      color: white;
+      background: black;
+    }
+    .video-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+    }
+    .background-video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: auto;
+      height: auto;
+      min-width: 100%;
+      min-height: 100%;
+      transform: translate(-50%, -50%);
+    }
+    .text-container {
+      position: relative;
+      z-index: 1;
+      padding: 20px;
+    }
+    #animated-text {
+      font-size: 3em;
+      /* Add any desired animation or styling for shining text here */
+    }
+    .action-buttons a {
+      margin-right: 20px;
+      padding: 10px 20px;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    #ask-section {
+      display: none;
+      margin-top: 20px;
+    }
+    #ask-section input {
+      padding: 10px;
+      width: 300px;
+      max-width: 80%;
+    }
+    #ask-section button {
+      padding: 10px;
+      margin-left: 10px;
+    }
+    #answer-output {
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(0,0,0,0.7);
+      max-width: 80%;
+    }
+  </style>
 </head>
 <body>
-  <!-- VIDEO BACKGROUND CONTAINER -->
+  <!-- Video Background -->
   <div class="video-container">
-    <video
-      class="background-video"
-      autoplay
-      loop
-      muted
-      playsinline
-      preload="auto"
-    >
+    <video class="background-video" autoplay loop muted playsinline>
       <source src="reflection.mp4" type="video/mp4" />
       <source src="reflection.webm" type="video/webm" />
       <source src="reflection.ogv" type="video/ogg" />
       Your browser does not support the video tag.
     </video>
+  </div>
 
-    <!-- SHINING TEXT -->
-    <div class="text-container">
-      <a
-        href="https://coloringwithgray.github.io/productpage/"
-        target="_blank"
-        id="animated-text-link"
-      >
-        <span id="animated-text"></span>
-      </a>
+  <!-- Shining Text and Action Buttons -->
+  <div class="text-container">
+    <div id="animated-text">Reflections of You</div>
+    <div class="action-buttons">
+      <a onclick="toggleAskSection()">Ask Questions</a>
+      <!-- Add more buttons like "Buy Now" as needed -->
+    </div>
+    
+    <!-- Q&A Section -->
+    <div id="ask-section">
+      <input type="text" id="question-input" placeholder="Type your question here..." />
+      <button onclick="submitQuestion()">Submit</button>
+      <div id="answer-output"></div>
     </div>
   </div>
 
-  <!-- ACTION BUTTONS container -->
-  <div id="action-buttons">
-    <a href="#" class="buy-now">Buy Now</a>
-    <a href="#" class="ask-questions">Ask Questions</a>
-  </div>
+  <script>
+    function toggleAskSection() {
+      const askSection = document.getElementById('ask-section');
+      if (askSection.style.display === 'none' || askSection.style.display === '') {
+        askSection.style.display = 'block';
+      } else {
+        askSection.style.display = 'none';
+      }
+    }
+
+    async function submitQuestion() {
+      const questionInput = document.getElementById('question-input');
+      const question = questionInput.value.trim();
+      const answerOutput = document.getElementById('answer-output');
+      
+      if (!question) {
+        answerOutput.innerText = "Please enter a question.";
+        return;
+      }
+
+      answerOutput.innerText = "Thinking...";
+
+      try {
+        const response = await fetch('http://localhost:3000/ask', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ question })
+        });
+
+        const data = await response.json();
+        answerOutput.innerText = data.reply || "Sorry, I couldn't get an answer.";
+      } catch (error) {
+        console.error(error);
+        answerOutput.innerText = "Error connecting to the server.";
+      }
+    }
+  </script>
 </body>
 </html>
