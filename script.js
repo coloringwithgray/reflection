@@ -4,7 +4,48 @@ document.addEventListener("DOMContentLoaded", () => {
   let index = 0;
   const speed = 250;   // Milliseconds between each character
   const delay = 3000;  // Milliseconds delay before typing starts
-  const textContainer = document.getElementById("animated-text");
+  const textContainer = document.getElementById("animated-text")
+    // Toggle Q&A Section Visibility
+const askBtn = document.getElementById('ask-question-btn');
+const askSection = document.getElementById('ask-section');
+
+if (askBtn) {
+  askBtn.addEventListener('click', () => {
+    askSection.style.display = askSection.style.display === 'none' ? 'block' : 'none';
+  });
+}
+
+// Handle Question Submission
+const submitBtn = document.getElementById('submit-question-btn');
+const questionInput = document.getElementById('question-input');
+const answerOutput = document.getElementById('answer-output');
+
+if (submitBtn) {
+  submitBtn.addEventListener('click', async () => {
+    const question = questionInput.value.trim();
+    if (!question) {
+      answerOutput.innerText = "Please enter a question.";
+      return;
+    }
+
+    answerOutput.innerText = "Thinking...";
+    
+    try {
+      const response = await fetch('https://product-agent-backend.onrender.com/ask', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ question }),
+      });
+
+      const data = await response.json();
+      answerOutput.innerText = data.reply || "Sorry, I couldn't get an answer.";
+    } catch (error) {
+      console.error(error);
+      answerOutput.innerText = "Error connecting to the server.";
+    }
+  });
+}
+;
 
   // 2. Recursive typing function
   function type() {
