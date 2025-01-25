@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reflections</title>
   
+  <!-- Meta Description for SEO -->
+  <meta name="description" content="Experience the reflections of you with our interactive platform featuring a stunning video background, animated text, and a responsive Q&A chat box.">
+
+  <!-- Structured Data for SEO (Customize as needed) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Reflections",
+    "url": "https://yourwebsite.com",
+    "description": "Experience the reflections of you with our interactive platform featuring a stunning video background, animated text, and a responsive Q&A chat box."
+  }
+  </script>
+
   <!-- Link to external CSS -->
   <link rel="stylesheet" href="styles.css" />
   
@@ -40,20 +54,20 @@
         id="animated-text-link"
         aria-label="Visit our Instagram page"
       >
-        <span id="animated-text"></span>
+        <span id="animated-text">Reflections of (You)</span>
       </a>
     </header>
 
     <!-- ACTION BUTTONS -->
     <section id="action-buttons">
-      <a href="#" class="buy-now" role="button" aria-label="Buy Now">Buy Now</a>
+      <button class="buy-now" aria-label="Buy Now">Buy Now</button>
       <button id="ask-question-btn" class="ask-questions" aria-haspopup="dialog" aria-expanded="false">
         Ask Questions
       </button>
     </section>
 
     <!-- Q&A SECTION -->
-    <section id="ask-section" class="qa-container" aria-hidden="true">
+    <section id="ask-section" class="qa-container" role="dialog" aria-modal="true" aria-hidden="true">
       <label for="question-input" class="sr-only">Your Question</label>
       <input type="text" id="question-input" placeholder="Type your question here..." class="qa-input" aria-label="Type your question here" />
       <button id="submit-question-btn" class="qa-button">Submit</button>
