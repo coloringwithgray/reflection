@@ -3,35 +3,40 @@
    =========================== */
 :root {
   --primary-color: #fff;
-  --secondary-color: rgba(0, 0, 0, 0.5); /* Slightly darker for better contrast */
+  --secondary-color: rgba(0, 0, 0, 0.3);
   --border-color: #fff;
   --button-hover-bg: rgba(255, 255, 255, 0.2);
   --input-bg: rgba(255, 255, 255, 0.2);
   --text-color: #fff;
-  --answer-font-size: 1.4em; /* Reduced font size for chat answers */
-  --qa-max-width: 600px; /* Increased width for better readability */
+  --answer-font-size: 1.5em;
+  --qa-max-width: 400px;
   --transition-speed: 0.3s;
-  --button-padding: 12px 24px;
-  --font-size-base: clamp(1rem, 2.5vw, 1.5rem); /* Fluid typography */
-  --focus-outline-color: #00f; /* High-contrast focus outline */
-  --font-family-default: 'Montserrat', sans-serif; /* Default font */
-  --font-family-chat: 'Raleway', sans-serif; /* Chatbot font */
 }
 
 /* ===========================
-   2. Global Resets and Base Styles
+   2. Custom Font Declaration
    =========================== */
-*, *::before, *::after {
+@font-face {
+  font-family: 'Lvvvdy';
+  src: url('Lvvvdy.otf') format('opentype');
+}
+
+/* ===========================
+   3. Global Resets and Base Styles
+   =========================== */
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: var(--font-family-default);
+  font-family: 'Lvvvdy', sans-serif;
   overflow: hidden; /* Prevent scroll bars */
-  font-size: var(--font-size-base);
 }
 
 a {
@@ -40,20 +45,14 @@ a {
 }
 
 button {
-  font-family: var(--font-family-default);
+  font-family: 'Lvvvdy', sans-serif;
   cursor: pointer;
   border: none;
   background: none;
-  transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
-}
-
-button:focus,
-a:focus {
-  outline: 3px solid var(--focus-outline-color); /* High-contrast focus outline */
 }
 
 /* ===========================
-   3. Screen Reader Only
+   4. Screen Reader Only
    =========================== */
 .sr-only {
   position: absolute;
@@ -67,7 +66,7 @@ a:focus {
 }
 
 /* ===========================
-   4. Video Background Styling
+   5. Video Background Styling
    =========================== */
 .video-container {
   position: fixed;
@@ -93,7 +92,7 @@ a:focus {
 }
 
 /* ===========================
-   5. Main Content Styling
+   6. Main Content Styling
    =========================== */
 #content-wrapper {
   position: absolute;
@@ -111,10 +110,10 @@ a:focus {
 }
 
 /* ===========================
-   6. Shining Text Container
+   7. Shining Text Container
    =========================== */
 .text-container {
-  font-size: clamp(1.5rem, 5vw, 3em);
+  font-size: 3em;
   text-align: left;
 }
 
@@ -149,7 +148,7 @@ a:focus {
 }
 
 /* ===========================
-   7. Action Buttons Styling
+   8. Action Buttons Styling
    =========================== */
 #action-buttons {
   opacity: 0;
@@ -165,33 +164,24 @@ a:focus {
   pointer-events: auto;
 }
 
-.buy-now,
-.ask-questions,
-.qa-button {
-  padding: var(--button-padding);
+#action-buttons a,
+#action-buttons button {
+  padding: 10px 20px;
   color: var(--primary-color);
   background: var(--secondary-color);
   border: 2px solid var(--border-color);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  transition: background-color var(--transition-speed) ease;
 }
 
-.buy-now:hover,
-.ask-questions:hover,
-.qa-button:hover {
+#action-buttons a:hover,
+#action-buttons button:hover {
   background-color: var(--button-hover-bg);
-  transform: translateY(-2px);
-}
-
-.buy-now:focus,
-.ask-questions:focus,
-.qa-button:focus {
-  outline: 3px solid var(--focus-outline-color);
 }
 
 /* ===========================
-   8. Q&A Section Styling
+   9. Q&A Section Styling
    =========================== */
 .qa-container {
   margin-top: 20px;
@@ -214,63 +204,50 @@ a:focus {
   margin-bottom: 10px;
   border: none;
   border-radius: 3px;
-  font-size: 1.2em; /* Increased font size for better readability */
+  font-size: 1em;
   background: var(--input-bg);
   color: var(--text-color);
 }
 
-.qa-input:focus {
-  outline: 3px solid var(--focus-outline-color);
-}
-
 .qa-button {
-  padding: var(--button-padding);
+  padding: 10px 20px;
   border: 2px solid var(--border-color);
   background: var(--secondary-color);
   color: var(--text-color);
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  transition: background-color var(--transition-speed) ease, transform var(--transition-speed) ease;
+  transition: background-color var(--transition-speed) ease;
 }
 
 .qa-button:hover {
   background-color: var(--button-hover-bg);
-  transform: translateY(-2px);
 }
 
 .qa-answer {
   margin-top: 15px;
   color: var(--text-color);
   font-size: var(--answer-font-size);
-  font-family: var(--font-family-chat); /* Applied Raleway font */
-  max-width: 100%; /* Ensure it doesn't exceed container */
 }
 
 /* ===========================
-   9. Portal-Specific Styling
+   10. Portal-Specific Styling
    =========================== */
 body.is-portal #content-wrapper {
   display: none;
 }
 
 /* ===========================
-   10. Responsive Design
+   11. Responsive Design
    =========================== */
 @media (max-width: 768px) {
   .text-container {
-    font-size: clamp(1.2rem, 4vw, 2em);
+    font-size: 2em;
   }
 
-  #action-buttons {
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .buy-now,
-  .ask-questions,
-  .qa-button {
-    width: 100%;
-    text-align: center;
+  #action-buttons a,
+  #action-buttons button {
+    padding: 8px 16px;
+    font-size: 0.9em;
   }
 
   .qa-container {
@@ -279,6 +256,6 @@ body.is-portal #content-wrapper {
   }
 
   .qa-answer {
-    font-size: 1.3em; /* Adjusted for smaller screens */
+    font-size: 1.2em;
   }
 }
