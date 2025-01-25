@@ -22,9 +22,9 @@
       playsinline
       preload="auto"
     >
-      <source src="assets/videos/reflection.mp4" type="video/mp4" />
-      <source src="assets/videos/reflection.webm" type="video/webm" />
-      <source src="assets/videos/reflection.ogv" type="video/ogg" />
+      <source src="reflection.mp4" type="video/mp4" />
+      <source src="reflection.webm" type="video/webm" />
+      <source src="reflection.ogv" type="video/ogg" />
       Your browser does not support the video tag.
     </video>
   </div>
@@ -49,22 +49,15 @@
         Ask Questions
       </button>
     </section>
+
+    <!-- Q&A SECTION -->
+    <section id="ask-section" class="qa-container" aria-hidden="true">
+      <label for="question-input" class="sr-only">Your Question</label>
+      <input type="text" id="question-input" placeholder="Type your question here..." class="qa-input" aria-label="Type your question here" />
+      <button id="submit-question-btn" class="qa-button">Submit</button>
+      <div id="answer-output" class="qa-answer" aria-live="polite"></div>
+    </section>
   </main>
-
-  <!-- Chatbot Toggle Button -->
-  <button id="chatbotToggle" aria-label="Open Chatbot">💬</button>
-
-  <!-- Q&A SECTION -->
-  <section id="ask-section" class="qa-container" aria-hidden="true">
-    <header class="qa-header">
-      <span>Ask Us</span>
-      <button id="close-chatbot" aria-label="Close Chatbot">✖️</button>
-    </header>
-    <label for="question-input" class="sr-only">Your Question</label>
-    <input type="text" id="question-input" placeholder="Type your question here..." class="qa-input" aria-label="Type your question here" />
-    <button id="submit-question-btn" class="qa-button">Submit</button>
-    <div id="answer-output" class="qa-answer" aria-live="polite"></div>
-  </section>
 
   <!-- OPTIONAL: Scroll Prompt -->
   <!-- Uncomment and implement if needed
