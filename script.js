@@ -44,36 +44,13 @@ document.addEventListener("DOMContentLoaded", () => {
   // 3. Toggle Q&A Section Visibility
   const askBtn = document.getElementById('ask-question-btn');
   const askSection = document.getElementById('ask-section');
-  const chatbotToggle = document.getElementById('chatbotToggle');
-  const closeChatbotBtn = document.getElementById('close-chatbot');
 
-  if (askBtn && askSection && chatbotToggle && closeChatbotBtn) {
-    // Function to open chatbot
-    function openChatbot() {
-      askSection.classList.add('active');
-      chatbotToggle.style.display = 'none';
-      askSection.setAttribute('aria-hidden', 'false');
-      // Shift focus to the input field for accessibility
-      document.getElementById('question-input').focus();
-    }
-
-    // Function to close chatbot
-    function closeChatbot() {
-      askSection.classList.remove('active');
-      chatbotToggle.style.display = 'flex';
-      askSection.setAttribute('aria-hidden', 'true');
-      // Return focus to the toggle button
-      chatbotToggle.focus();
-    }
-
-    // Event listener for the toggle button
-    chatbotToggle.addEventListener('click', openChatbot);
-
-    // Event listener for the close button
-    closeChatbotBtn.addEventListener('click', closeChatbot);
-
-    // Optional: Open chatbot when "Ask Questions" button is clicked
-    askBtn.addEventListener('click', openChatbot);
+  if (askBtn && askSection) {
+    askBtn.addEventListener('click', () => {
+      const isActive = askSection.classList.toggle('active');
+      askBtn.setAttribute('aria-expanded', isActive);
+      askSection.setAttribute('aria-hidden', !isActive);
+    });
   }
 
   // 4. Handle Question Submission
