@@ -50,6 +50,17 @@ document.addEventListener("DOMContentLoaded", () => {
       const isActive = askSection.classList.toggle('active');
       askBtn.setAttribute('aria-expanded', isActive);
       askSection.setAttribute('aria-hidden', !isActive);
+
+      if (isActive) {
+        // Shift focus to the input field when Q&A is opened
+        const questionInput = document.getElementById('question-input');
+        if (questionInput) {
+          questionInput.focus();
+        }
+      } else {
+        // Return focus to the "Ask Questions" button when Q&A is closed
+        askBtn.focus();
+      }
     });
   }
 
@@ -69,6 +80,8 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
 
+      // Disable the submit button to prevent multiple submissions
+      submitBtn.disabled = true;
       answerOutput.textContent = "Thinking...";
 
       try {
@@ -97,6 +110,11 @@ document.addEventListener("DOMContentLoaded", () => {
           console.error(error);
           answerOutput.textContent = "Error connecting to the server.";
         }
+      } finally {
+        // Re-enable the submit button after processing
+        submitBtn.disabled = false;
+        // Clear the input field
+        questionInput.value = '';
       }
     }
 
