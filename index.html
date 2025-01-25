@@ -7,13 +7,13 @@
   
   <!-- Link to external CSS -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Defer script so it doesn't block HTML parsing -->
+  
+  <!-- Defer script to prevent blocking HTML parsing -->
   <script src="script.js" defer></script>
 </head>
 <body>
   <!-- VIDEO BACKGROUND CONTAINER -->
-  <div class="video-container">
+  <div class="video-container" aria-hidden="true">
     <video
       class="background-video"
       autoplay
@@ -21,33 +21,52 @@
       muted
       playsinline
       preload="auto"
+      poster="reflection-poster.jpg" <!-- Added poster image -->
     >
       <source src="reflection.mp4" type="video/mp4" />
       <source src="reflection.webm" type="video/webm" />
       <source src="reflection.ogv" type="video/ogg" />
       Your browser does not support the video tag.
     </video>
+  </div>
 
+  <!-- MAIN CONTENT -->
+  <main id="content-wrapper">
     <!-- SHINING TEXT -->
-    <div class="text-container">
+    <header class="text-container">
       <a
         href="https://instagram.com/coloringwithgray"
         target="_blank"
+        rel="noopener noreferrer" <!-- Security enhancement -->
         id="animated-text-link"
+        aria-label="Visit our Instagram page"
       >
         <span id="animated-text"></span>
       </a>
-    </div>
+    </header>
+
+    <!-- ACTION BUTTONS -->
+    <section id="action-buttons">
+      <a href="#" class="buy-now" role="button" aria-label="Buy Now">Buy Now</a>
+      <button id="ask-question-btn" class="ask-questions" aria-haspopup="dialog" aria-expanded="false">
+        Ask Questions
+      </button>
+    </section>
+
+    <!-- Q&A SECTION -->
+    <section id="ask-section" class="qa-container" aria-hidden="true">
+      <label for="question-input" class="sr-only">Your Question</label>
+      <input type="text" id="question-input" placeholder="Type your question here..." class="qa-input" aria-label="Type your question here" />
+      <button id="submit-question-btn" class="qa-button">Submit</button>
+      <div id="answer-output" class="qa-answer" aria-live="polite"></div>
+    </section>
+  </main>
+
+  <!-- OPTIONAL: Scroll Prompt -->
+  <!-- Uncomment and implement if needed
+  <div class="scroll-prompt">
+    <p>Scroll down</p>
   </div>
-
-  <!-- ACTION BUTTONS container -->
-  <div id="action-buttons">
-    <a href="#" class="buy-now">Buy Now</a>
-    <a href="javascript:void(0);" id="ask-question-btn" class="ask-questions">Ask Questions</a>
-
-<!-- Add the hidden Q&A section at the bottom of the body -->
-<div id="ask-section" style="display: none;">
-  <input type="text" id="question-input" placeholder="Type your question here..." />
-  <button id="submit-question-btn">Submit</button>
-  <div id="answer-output"></div>
-</div>
+  -->
+</body>
+</html>
