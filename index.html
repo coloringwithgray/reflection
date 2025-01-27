@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <!-- Tightened Content-Security-Policy -->
   <meta
     http-equiv="Content-Security-Policy"
     content="
@@ -17,14 +16,13 @@
     "
   >
   <title>Reflections</title>
-  <!-- External CSS -->
   <link rel="stylesheet" href="styles.css" />
-  <!-- External JS (defer) -->
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Background Video Container -->
+  <!-- Video Container -->
   <div class="video-container" aria-hidden="true">
+    <!-- Remove poster attribute entirely -->
     <video
       class="background-video"
       autoplay
@@ -32,13 +30,14 @@
       muted
       playsinline
       preload="auto"
-      poster="video-poster.jpg"
     >
       <source src="reflection.mp4" type="video/mp4" />
       <source src="reflection.webm" type="video/webm" />
       <source src="reflection.ogv" type="video/ogg" />
       Your browser does not support the video tag.
     </video>
+    <!-- Optional overlay that will be removed/faded out once video is ready -->
+    <div class="loading-overlay"></div>
   </div>
 
   <!-- Main Content -->
@@ -50,7 +49,6 @@
         rel="noopener noreferrer"
         aria-label="Visit our Instagram page (opens in new tab)"
       >
-        <!-- Hide text initially so it doesn't appear before type animation -->
         <span id="animated-text" style="visibility: hidden;"></span>
       </a>
     </header>
