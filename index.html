@@ -3,32 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Reflections</title>
-
-  <!-- Example CSP: allows local fonts, inline styles (for the external CSS link),
-       local scripts, and connectivity to your QA backend.
-       Adjust as needed for your own environment. -->
+  <!-- Tightened Content-Security-Policy -->
   <meta
     http-equiv="Content-Security-Policy"
     content="
       default-src 'self';
-      script-src 'self';
       style-src 'self' 'unsafe-inline';
-      font-src 'self' data:;
-      media-src 'self';
+      font-src 'self';
+      script-src 'self';
+      img-src 'self' https: data:;
+      media-src 'self' https:;
       connect-src 'self' https://product-agent-backend.onrender.com;
-      img-src 'self' data:;
     "
   >
-
+  <title>Reflections</title>
   <!-- Link to External CSS -->
   <link rel="stylesheet" href="styles.css" />
-
-  <!-- Defer External JS so it runs after the DOM is parsed -->
+  <!-- Link to External JS (defer means it runs after DOM is parsed) -->
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Background Video Container (no poster) -->
+  <!-- Background Video Container -->
   <div class="video-container" aria-hidden="true">
     <video
       class="background-video"
@@ -37,11 +32,11 @@
       muted
       playsinline
       preload="auto"
+      poster="video-poster.jpg"
     >
       <source src="reflection.mp4" type="video/mp4" />
       <source src="reflection.webm" type="video/webm" />
       <source src="reflection.ogv" type="video/ogg" />
-      <!-- Poster removed on purpose -->
       Your browser does not support the video tag.
     </video>
   </div>
@@ -55,18 +50,15 @@
         rel="noopener noreferrer"
         aria-label="Visit our Instagram page (opens in new tab)"
       >
-        <span id="animated-text" style="visibility: hidden;"></span>
+        <span id="animated-text"></span>
       </a>
     </header>
 
-    <!-- Action Buttons -->
     <nav id="action-buttons" aria-label="Main actions">
-      <a href="#" class="white-box buy-now" role="button" aria-label="Buy Now">
-        Buy Now
-      </a>
+      <a href="#" class="buy-now" role="button" aria-label="Buy Now">Buy Now</a>
       <button
         id="ask-question-btn"
-        class="white-box ask-questions"
+        class="ask-questions"
         aria-haspopup="true"
         aria-expanded="false"
       >
@@ -82,12 +74,13 @@
       novalidate
       aria-label="Question and answer form"
     >
+      <!-- Screen reader-only label -->
       <label for="question-input" class="sr-only">Your Question</label>
       <input
         type="text"
         id="question-input"
-        class="qa-input"
         placeholder="Type your question here..."
+        class="qa-input"
         aria-required="true"
         required
         aria-invalid="false"
