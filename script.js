@@ -6,33 +6,54 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   const backgroundVideo = document.querySelector(".background-video");
+  const loadingOverlay = document.querySelector(".loading-overlay");
   const textContainer = document.getElementById("animated-text");
   const actionButtons = document.getElementById("action-buttons");
 
-  // Fade-in video on first frame, then start text animation
-  backgroundVideo.addEventListener("loadeddata", () => {
-    backgroundVideo.style.opacity = "1"; // fade in the video
-    typeText();
+  let videoReady = false;
+
+  // Fade in video when it's ready
+  backgroundVideo.addEventListener("canplaythrough", () => {
+    videoReady = true;
+    // Fade in the video
+    backgroundVideo.style.opacity = "1";
+    // Fade out the overlay
+    loadingOverlay.style.opacity = "0";
+    // Once that fade completes, remove it
+    setTimeout(() => {
+      loadingOverlay.remove();
+    }, 1000);
+
+    // Start the typing animation
+    startTyping();
   });
 
-  // Typing animation
-  const text = "Reflections of (You)";
-  let index = 0;
+  // Fallback if the event never fires (e.g., blocked in an iframe)
+  setTimeout(() => {
+    if (!videoReady) {
+      // Hide or remove the video & overlay
+      backgroundVideo.remove();
+      loadingOverlay.remove();
+      // Start typing anyway
+      startTyping();
+    }
+  }, 5000);
 
-  function typeText() {
-    // Make sure the text is visible before starting
+  function startTyping() {
     textContainer.style.visibility = "visible";
+    const text = "Reflections of (You)";
+    let index = 0;
 
-    if (index < text.length) {
-      requestAnimationFrame(() => {
+    function typeChar() {
+      if (index < text.length) {
         textContainer.textContent += text.charAt(index);
         index++;
-        // Slightly longer pause on first char
-        setTimeout(typeText, index === 1 ? 1500 : 250);
-      });
-    } else {
-      actionButtons?.classList.add("loaded");
+        setTimeout(typeChar, index === 1 ? 1500 : 250);
+      } else {
+        actionButtons?.classList.add("loaded");
+      }
     }
+    typeChar();
   }
 
   // Q&A Section
@@ -40,7 +61,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const questionInput = document.getElementById("question-input");
   const answerOutput = document.getElementById("answer-output");
 
-  // Toggle Q&A
   document.getElementById("ask-question-btn")?.addEventListener("click", () => {
     const isActive = qaSection.classList.toggle("active");
     qaSection.setAttribute("aria-hidden", !isActive);
@@ -49,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Sanitize user input
   function sanitizeInput(str) {
     const div = document.createElement("div");
     div.textContent = str;
@@ -109,6 +128,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if ("connection" in navigator) {
       if (navigator.connection.saveData || navigator.connection.effectiveType.includes("2g")) {
         backgroundVideo.remove();
+        loadingOverlay.remove();
       }
     }
   });
