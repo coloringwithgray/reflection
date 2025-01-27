@@ -1,44 +1,32 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Portal detection
+  // If loaded in an iframe, skip advanced logic (optional).
   if (window.self !== window.top) {
     document.body.classList.add("is-portal");
     return;
   }
 
   const backgroundVideo = document.querySelector(".background-video");
-  const loadingOverlay = document.querySelector(".loading-overlay");
   const textContainer = document.getElementById("animated-text");
   const actionButtons = document.getElementById("action-buttons");
 
   let videoReady = false;
 
-  // Fade in video when it's ready
+  // Fade in video once it has enough data to play
   backgroundVideo.addEventListener("canplaythrough", () => {
     videoReady = true;
-    // Fade in the video
-    backgroundVideo.style.opacity = "1";
-    // Fade out the overlay
-    loadingOverlay.style.opacity = "0";
-    // Once that fade completes, remove it
-    setTimeout(() => {
-      loadingOverlay.remove();
-    }, 1000);
-
-    // Start the typing animation
+    backgroundVideo.style.opacity = "1"; // fade from 0 to 1
     startTyping();
   });
 
-  // Fallback if the event never fires (e.g., blocked in an iframe)
+  // Fallback if canplaythrough never fires (blocked or slow)
   setTimeout(() => {
     if (!videoReady) {
-      // Hide or remove the video & overlay
       backgroundVideo.remove();
-      loadingOverlay.remove();
-      // Start typing anyway
       startTyping();
     }
   }, 5000);
 
+  // Type "Reflections of (You)" text
   function startTyping() {
     textContainer.style.visibility = "visible";
     const text = "Reflections of (You)";
@@ -48,8 +36,10 @@ document.addEventListener("DOMContentLoaded", () => {
       if (index < text.length) {
         textContainer.textContent += text.charAt(index);
         index++;
+        // Slightly longer pause after first char
         setTimeout(typeChar, index === 1 ? 1500 : 250);
       } else {
+        // When done typing, show the action buttons
         actionButtons?.classList.add("loaded");
       }
     }
@@ -61,6 +51,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const questionInput = document.getElementById("question-input");
   const answerOutput = document.getElementById("answer-output");
 
+  // Toggle Q&A form visibility
   document.getElementById("ask-question-btn")?.addEventListener("click", () => {
     const isActive = qaSection.classList.toggle("active");
     qaSection.setAttribute("aria-hidden", !isActive);
@@ -69,12 +60,14 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  // Simple input sanitization
   function sanitizeInput(str) {
     const div = document.createElement("div");
     div.textContent = str;
     return div.innerHTML;
   }
 
+  // Handle question submission
   async function handleSubmit(e) {
     e.preventDefault();
     const question = sanitizeInput(questionInput.value.trim());
@@ -89,6 +82,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const controller = new AbortController();
+      // Abort if it takes more than 15 seconds
       setTimeout(() => controller.abort(), 15000);
 
       const response = await fetch("https://product-agent-backend.onrender.com/ask", {
@@ -116,6 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Submit question on button click or Enter key
   document.getElementById("submit-question-btn")?.addEventListener("click", handleSubmit);
   questionInput?.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -123,12 +118,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Performance / Data Saver
+  // Performance / Data-Saver detection
   window.addEventListener("load", () => {
     if ("connection" in navigator) {
       if (navigator.connection.saveData || navigator.connection.effectiveType.includes("2g")) {
         backgroundVideo.remove();
-        loadingOverlay.remove();
       }
     }
   });
