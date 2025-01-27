@@ -33,17 +33,17 @@
 }
 
 html {
-  font-size: 16px;
+  font-size: 16px; /* base font size */
   scroll-behavior: smooth;
 }
 
-/* Apply custom font to body */
+/* Apply the custom font to body */
 body {
   font-family: 'Lvvvdy', system-ui, -apple-system, sans-serif;
   color: var(--text-color);
   background: #000; /* fallback if video won't load */
   line-height: 1.5;
-  /* Remove overflow: hidden; so the page is scrollable in small iframes */
+  /* Removed overflow: hidden; so the page is scrollable in small iframes */
 }
 
 /* Let form controls inherit the font & color from body */
@@ -91,7 +91,6 @@ a {
   min-width: 100%;
   min-height: 100%;
   object-fit: cover;
-
   /* Fade in once ready */
   opacity: 0;
   transition: opacity 1s ease;
@@ -111,12 +110,12 @@ a {
 }
 
 .text-container {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2.25rem, 5vw, 3.5rem); /* Slightly bigger than before */
   max-width: 800px;
   margin-bottom: 2rem;
 }
 
-/* Typing text styling */
+/* Typed text styling */
 #animated-text {
   background: linear-gradient(
     90deg,
@@ -151,7 +150,7 @@ a {
   pointer-events: none;
   transition: opacity var(--transition-speed) ease;
   display: flex;
-  gap: 1rem;
+  gap: 1.5rem; /* slightly bigger gap */
   margin-bottom: 2rem;
 }
 
@@ -160,12 +159,16 @@ a {
   pointer-events: auto;
 }
 
-/* White-box style for Buy Now, Ask Questions, etc. */
+/* 
+   White-box style for Buy Now, Ask Questions, etc.
+   Increased font-size & padding for larger boxes
+*/
 .white-box {
+  font-size: 1.125rem; /* ~18px if base is 16px */
   border: 2px solid var(--border-color);
   background: transparent;
   color: var(--text-color);
-  padding: 0.75rem 1.5rem;
+  padding: 1rem 2rem;
   text-decoration: none;
   cursor: pointer;
   transition: background-color var(--transition-speed), transform 0.2s ease;
@@ -179,10 +182,14 @@ a {
 /* ===========================
    7) Q&A FORM
    =========================== */
+/* 
+   Increase container width from 400px to 500px 
+   for a more rectangular shape 
+*/
 .qa-container {
   position: relative;
   z-index: var(--z-index-qa);
-  width: min(100%, 400px);
+  width: min(100%, 500px);
   margin-top: 2rem;
   opacity: 0;
   transform: translateY(10px);
@@ -194,36 +201,47 @@ a {
   transform: translateY(0);
 }
 
+/* 
+   Make the Q&A input larger: 
+   bigger font-size + bigger padding 
+*/
 .qa-input {
-  width: 100%;
-  margin-bottom: 1rem;
+  font-size: 1rem;
   border: 2px solid var(--border-color);
   background: transparent;
-  padding: 0.75rem;
+  padding: 0.875rem;
+  margin-bottom: 1rem;
   transition: box-shadow 0.2s ease;
 }
-
 .qa-input:invalid {
   box-shadow: 0 0 0 2px var(--error-color);
 }
 
+/* 
+   Q&A Submit Button - match the .white-box style 
+   but keep it consistent with the bigger size 
+*/
 .qa-button {
-  width: 100%;
+  font-size: 1.125rem; /* match the main .white-box */
   border: 2px solid var(--border-color);
   background: transparent;
-  padding: 0.75rem;
+  padding: 1rem;
   cursor: pointer;
   transition: background-color var(--transition-speed), transform 0.2s ease;
 }
-
 .qa-button:hover {
   background-color: var(--button-hover-bg);
   transform: translateY(-2px);
 }
 
+/* 
+   Answer box: increase min-height so it becomes 
+   more of a rectangle if there's less text
+*/
 .qa-answer {
   margin-top: 1rem;
-  min-height: 2em;
+  min-height: 6em; /* bigger rectangle shape */
+  font-size: 1rem;
 }
 
 /* ===========================
