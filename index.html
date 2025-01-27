@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <title>Reflections</title>
   
   <!-- Link to external CSS -->
@@ -21,6 +21,7 @@
       muted
       playsinline
       preload="auto"
+    >
       <source src="reflection.mp4" type="video/mp4" />
       <source src="reflection.webm" type="video/webm" />
       <source src="reflection.ogv" type="video/ogg" />
@@ -31,6 +32,40 @@
   <!-- MAIN CONTENT -->
   <main id="content-wrapper">
     <!-- SHINING TEXT -->
+    <header class="text-container">
+      <a
+        href="https://instagram.com/coloringwithgray"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <span id="animated-text">Reflections</span>
+      </a>
+    </header>
+
+    <!-- ACTION BUTTONS -->
+    <section id="action-buttons">
+      <a href="#" class="buy-now" role="button" aria-label="Buy Now">Buy Now</a>
+      <button id="ask-question-btn" class="ask-questions" aria-haspopup="dialog" aria-expanded="false">
+        Ask Questions
+      </button>
+    </section>
+
+    <!-- Q&A SECTION -->
+    <section id="ask-section" class="qa-container" aria-hidden="true">
+      <label for="question-input" class="sr-only">Your Question</label>
+      <input
+        type="text"
+        id="question-input"
+        placeholder="Type your question here..."
+        class="qa-input"
+        aria-label="Type your question here"
+      />
+      <button id="submit-question-btn" class="qa-button">Submit</button>
+      <div id="answer-output" class="qa-answer" aria-live="polite"></div>
+    </section>
+  </main>
+</body>
+</html>
     <header class="text-container">
       <a
         href="https://instagram.com/coloringwithgray"
