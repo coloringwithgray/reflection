@@ -54,7 +54,7 @@ body {
   line-height: 1.6;
   color: var(--text-color);
   overflow: hidden;
-  background: #000; /* Fallback for video */
+  background: #000; /* Fallback for video or poster */
 }
 
 /* ===========================
@@ -76,7 +76,7 @@ body {
   outline-offset: 3px;
 }
 
-/* Hide labels visually but keep accessible to screen readers */
+/* Screen reader-only label */
 .sr-only {
   position: absolute;
   width: 1px;
@@ -92,6 +92,7 @@ body {
 /* ===========================
    Video Background
    =========================== */
+/* Fade in the video once it's loaded */
 .video-container {
   position: fixed;
   top: 0;
@@ -109,6 +110,10 @@ body {
   min-height: 100%;
   transform: translate(-50%, -50%);
   object-fit: cover;
+
+  /* Initially hidden; fade in when loaded */
+  opacity: 0;
+  transition: opacity 1s ease;
 }
 
 /* ===========================
@@ -169,14 +174,19 @@ body {
   pointer-events: auto;
 }
 
+/* 
+  Revert to transparent boxes with white text and white border
+*/
 #action-buttons a,
 #action-buttons button {
   padding: 0.75rem 1.5rem;
   border: 2px solid var(--border-color);
-  transition: 
+  color: var(--text-color);
+  background-color: transparent; /* or a slight RGBA if you prefer: rgba(255,255,255,0.15) */
+  transition:
     background-color var(--transition-speed),
     transform 0.2s ease;
-  backdrop-filter: blur(4px);
+  backdrop-filter: none; /* or blur(4px) if you liked that style */
 }
 
 #action-buttons a:hover,
@@ -192,7 +202,7 @@ body {
   margin-top: 2rem;
   opacity: 0;
   transform: translateY(10px);
-  transition: 
+  transition:
     opacity var(--transition-speed),
     transform var(--transition-speed);
 }
@@ -208,8 +218,8 @@ body {
   margin-bottom: 1rem;
   background: var(--input-bg);
   transition: box-shadow 0.2s ease;
-  border: none;
   color: var(--text-color);
+  border: none;
 }
 
 .qa-input:invalid {
@@ -223,12 +233,12 @@ body {
   background: transparent;
   color: var(--text-color);
   cursor: pointer;
-  transition: 
+  transition:
     background-color var(--transition-speed),
     transform 0.2s ease;
-  backdrop-filter: blur(4px);
 }
 
+/* Minimum space for the answer text */
 .qa-answer {
   margin-top: 1rem;
   min-height: 2em;
@@ -252,6 +262,7 @@ body {
     background: #000;
   }
   
+  /* Widen the video for portrait to avoid black bars */
   .background-video {
     width: 150%;
     height: auto;
