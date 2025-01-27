@@ -3,26 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reflections</title>
+
+  <!-- Example CSP: allows local fonts, inline styles (for the external CSS link),
+       local scripts, and connectivity to your QA backend.
+       Adjust as needed for your own environment. -->
   <meta
     http-equiv="Content-Security-Policy"
     content="
       default-src 'self';
-      style-src 'self' 'unsafe-inline';
-      font-src 'self';
       script-src 'self';
-      img-src 'self' https: data:;
-      media-src 'self' https:;
+      style-src 'self' 'unsafe-inline';
+      font-src 'self' data:;
+      media-src 'self';
       connect-src 'self' https://product-agent-backend.onrender.com;
+      img-src 'self' data:;
     "
   >
-  <title>Reflections</title>
+
+  <!-- Link to External CSS -->
   <link rel="stylesheet" href="styles.css" />
+
+  <!-- Defer External JS so it runs after the DOM is parsed -->
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Video Container -->
+  <!-- Background Video Container (no poster) -->
   <div class="video-container" aria-hidden="true">
-    <!-- Remove poster attribute entirely -->
     <video
       class="background-video"
       autoplay
@@ -34,10 +41,9 @@
       <source src="reflection.mp4" type="video/mp4" />
       <source src="reflection.webm" type="video/webm" />
       <source src="reflection.ogv" type="video/ogg" />
+      <!-- Poster removed on purpose -->
       Your browser does not support the video tag.
     </video>
-    <!-- Optional overlay that will be removed/faded out once video is ready -->
-    <div class="loading-overlay"></div>
   </div>
 
   <!-- Main Content -->
@@ -53,11 +59,14 @@
       </a>
     </header>
 
+    <!-- Action Buttons -->
     <nav id="action-buttons" aria-label="Main actions">
-      <a href="#" class="buy-now" role="button" aria-label="Buy Now">Buy Now</a>
+      <a href="#" class="white-box buy-now" role="button" aria-label="Buy Now">
+        Buy Now
+      </a>
       <button
         id="ask-question-btn"
-        class="ask-questions"
+        class="white-box ask-questions"
         aria-haspopup="true"
         aria-expanded="false"
       >
@@ -77,8 +86,8 @@
       <input
         type="text"
         id="question-input"
-        placeholder="Type your question here..."
         class="qa-input"
+        placeholder="Type your question here..."
         aria-required="true"
         required
         aria-invalid="false"
