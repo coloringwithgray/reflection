@@ -17,13 +17,13 @@
     "
   >
   <title>Reflections</title>
-  <!-- Link to External CSS -->
+  <!-- Link to CSS -->
   <link rel="stylesheet" href="styles.css" />
-  <!-- Link to External JS (defer means it runs after DOM is parsed) -->
+  <!-- Link to JS (defer loads after the HTML is parsed) -->
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- Background Video Container -->
+  <!-- Video Container -->
   <div class="video-container" aria-hidden="true">
     <video
       class="background-video"
@@ -50,7 +50,8 @@
         rel="noopener noreferrer"
         aria-label="Visit our Instagram page (opens in new tab)"
       >
-        <span id="animated-text"></span>
+        <!-- Initially hide text (optional) so it doesn't appear before animation -->
+        <span id="animated-text" style="visibility: hidden;"></span>
       </a>
     </header>
 
@@ -74,7 +75,6 @@
       novalidate
       aria-label="Question and answer form"
     >
-      <!-- Screen reader-only label -->
       <label for="question-input" class="sr-only">Your Question</label>
       <input
         type="text"
