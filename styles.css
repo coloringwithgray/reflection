@@ -189,9 +189,12 @@ button {
   border: 2px solid var(--border-color);
   padding: 20px;
   border-radius: 5px;
-  max-width: var(--qa-max-width);
-  width: 100%;
+  max-width: none; /* Allow full width */
+  width: calc(100% - 40px); /* Use almost full width with padding */
   display: none; /* Initially hidden */
+  margin-left: auto; /* Center horizontally */
+  margin-right: auto; /* Center horizontally */
+  box-sizing: border-box; /* Ensure padding doesn't break layout */
 }
 
 .qa-container.active {
@@ -251,7 +254,7 @@ body.is-portal #content-wrapper {
   }
 
   .qa-container {
-    max-width: 100%;
+    width: calc(100% - 20px); /* Adjust for mobile view */
     padding: 15px;
   }
 
