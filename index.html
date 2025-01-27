@@ -2,17 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Tightened Content-Security-Policy -->
+  <meta
+    http-equiv="Content-Security-Policy"
+    content="
+      default-src 'self';
+      style-src 'self' 'unsafe-inline';
+      font-src 'self';
+      script-src 'self';
+      img-src 'self' https: data:;
+      media-src 'self' https:;
+      connect-src 'self' https://product-agent-backend.onrender.com;
+    "
+  >
   <title>Reflections</title>
-  
-  <!-- Link to external CSS -->
+  <!-- Link to External CSS -->
   <link rel="stylesheet" href="styles.css" />
-  
-  <!-- Defer script to prevent blocking HTML parsing -->
+  <!-- Link to External JS (defer means it runs after DOM is parsed) -->
   <script src="script.js" defer></script>
 </head>
 <body>
-  <!-- VIDEO BACKGROUND CONTAINER -->
+  <!-- Background Video Container -->
   <div class="video-container" aria-hidden="true">
     <video
       class="background-video"
@@ -21,6 +32,8 @@
       muted
       playsinline
       preload="auto"
+      poster="video-poster.jpg"
+    >
       <source src="reflection.mp4" type="video/mp4" />
       <source src="reflection.webm" type="video/webm" />
       <source src="reflection.ogv" type="video/ogg" />
@@ -28,41 +41,59 @@
     </video>
   </div>
 
-  <!-- MAIN CONTENT -->
+  <!-- Main Content -->
   <main id="content-wrapper">
-    <!-- SHINING TEXT -->
     <header class="text-container">
       <a
         href="https://instagram.com/coloringwithgray"
         target="_blank"
-        rel="noopener noreferrer" <!-- Security enhancement -->
-        
+        rel="noopener noreferrer"
+        aria-label="Visit our Instagram page (opens in new tab)"
+      >
         <span id="animated-text"></span>
       </a>
     </header>
 
-    <!-- ACTION BUTTONS -->
-    <section id="action-buttons">
+    <nav id="action-buttons" aria-label="Main actions">
       <a href="#" class="buy-now" role="button" aria-label="Buy Now">Buy Now</a>
-      <button id="ask-question-btn" class="ask-questions" aria-haspopup="dialog" aria-expanded="false">
+      <button
+        id="ask-question-btn"
+        class="ask-questions"
+        aria-haspopup="true"
+        aria-expanded="false"
+      >
         Ask Questions
       </button>
-    </section>
+    </nav>
 
-    <!-- Q&A SECTION -->
-    <section id="ask-section" class="qa-container" aria-hidden="true">
+    <!-- Q&A Form -->
+    <form
+      id="ask-section"
+      class="qa-container"
+      aria-hidden="true"
+      novalidate
+      aria-label="Question and answer form"
+    >
+      <!-- Screen reader-only label -->
       <label for="question-input" class="sr-only">Your Question</label>
-      <input type="text" id="question-input" placeholder="Type your question here..." class="qa-input" aria-label="Type your question here" />
-      <button id="submit-question-btn" class="qa-button">Submit</button>
+      <input
+        type="text"
+        id="question-input"
+        placeholder="Type your question here..."
+        class="qa-input"
+        aria-required="true"
+        required
+        aria-invalid="false"
+      />
+      <button
+        id="submit-question-btn"
+        class="qa-button"
+        type="submit"
+      >
+        Submit
+      </button>
       <div id="answer-output" class="qa-answer" aria-live="polite"></div>
-    </section>
+    </form>
   </main>
-
-  <!-- OPTIONAL: Scroll Prompt -->
-  <!-- Uncomment and implement if needed
-  <div class="scroll-prompt">
-    <p>Scroll down</p>
-  </div>
-  -->
 </body>
 </html>
