@@ -1,22 +1,6 @@
 /* ===========================
-   CSS Variables & Font Setup
+   1) CUSTOM FONT DEFINITION
    =========================== */
-:root {
-  --primary-color: #fff;
-  --border-color: #fff;
-  --text-color: #fff;
-  --button-hover-bg: rgba(255,255,255,0.2);
-  --error-color: #ff4444;
-
-  --base-font-size: 16px;
-  --qa-max-width: 400px;
-  --transition-speed: 0.3s;
-
-  --z-index-video: 1;
-  --z-index-content: 2;
-  --z-index-qa: 3;
-}
-
 @font-face {
   font-family: 'Lvvvdy';
   src: url('Lvvvdy.otf') format('opentype');
@@ -26,37 +10,59 @@
 }
 
 /* ===========================
-   Resets & Base
+   2) ROOT VARIABLES
    =========================== */
-*,
-*::before,
-*::after {
+:root {
+  --text-color: #fff;
+  --border-color: #fff;
+  --button-hover-bg: rgba(255, 255, 255, 0.2);
+  --error-color: #ff4444;
+  --transition-speed: 0.3s;
+  --z-index-video: 1;
+  --z-index-content: 2;
+  --z-index-qa: 3;
+}
+
+/* ===========================
+   3) BASE & RESET
+   =========================== */
+* {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 html {
-  font-size: var(--base-font-size);
+  font-size: 16px;
   scroll-behavior: smooth;
 }
 
+/* Apply custom font to body */
 body {
   font-family: 'Lvvvdy', system-ui, -apple-system, sans-serif;
-  line-height: 1.6;
   color: var(--text-color);
-  /* If you want to avoid black altogether, pick a neutral color or gradient */
-  background: #1a1a1a;
-  overflow: hidden;
+  background: #000; /* fallback if video won't load */
+  line-height: 1.5;
+  /* Remove overflow: hidden; so the page is scrollable in small iframes */
 }
 
-/* Hide elements but keep for screen readers */
+/* Let form controls inherit the font & color from body */
+button,
+input,
+select,
+textarea,
+a {
+  font: inherit;
+  color: inherit;
+}
+
+/* Screen-reader-only text for accessibility */
 .sr-only {
   position: absolute;
   width: 1px; 
-  height: 1px; 
+  height: 1px;
   padding: 0; 
-  margin: -1px; 
+  margin: -1px;
   overflow: hidden;
   clip: rect(0,0,0,0);
   white-space: nowrap;
@@ -64,85 +70,53 @@ body {
 }
 
 /* ===========================
-   Accessibility & Interactions
-   =========================== */
-@media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  #animated-text {
-    animation: none !important;
-    background: var(--text-color) !important;
-  }
-}
-
-:focus {
-  outline: 2px solid var(--primary-color);
-  outline-offset: 3px;
-}
-
-/* ===========================
-   Video & Fallback
+   4) VIDEO BACKGROUND
    =========================== */
 .video-container {
   position: fixed;
-  top: 0; 
+  top: 0;
   left: 0;
-  width: 100%; 
+  width: 100%;
   height: 100%;
   z-index: var(--z-index-video);
-  /* Provide some fallback color or subtle gradient behind the video */
-  background: linear-gradient(135deg, #333, #000);
+  background: #111; /* fallback color or gradient */
   overflow: hidden;
 }
 
 .background-video {
   position: absolute;
-  top: 50%; 
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 100%; 
+  min-width: 100%;
   min-height: 100%;
   object-fit: cover;
 
-  /* Start invisible; fade in once loaded/canplaythrough */
+  /* Fade in once ready */
   opacity: 0;
   transition: opacity 1s ease;
 }
 
-.loading-overlay {
-  position: absolute;
-  top: 0; left: 0;
-  width: 100%; 
-  height: 100%;
-  /* If you want a spinner, insert it as background or after content. 
-     Here let's do a tinted overlay. */
-  background: rgba(0, 0, 0, 0.4);
-  backdrop-filter: blur(5px);
-  transition: opacity 1s ease;
-  pointer-events: none; /* Let clicks pass through */
-}
-
 /* ===========================
-   Main Content
+   5) MAIN CONTENT WRAPPER
    =========================== */
 #content-wrapper {
   position: relative;
   z-index: var(--z-index-content);
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
   justify-content: center;
-  min-height: 100vh;
   padding: 5%;
 }
 
 .text-container {
   font-size: clamp(2rem, 5vw, 3rem);
   max-width: 800px;
+  margin-bottom: 2rem;
 }
 
+/* Typing text styling */
 #animated-text {
   background: linear-gradient(
     90deg,
@@ -156,10 +130,11 @@ body {
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
-  animation: shine 8s linear infinite;
   letter-spacing: 0.37em;
+  animation: shine 8s linear infinite;
   display: inline-block;
-  visibility: hidden; /* hidden until video or fallback triggers typing */
+  /* hidden until the video loads or fallback triggers the typing */
+  visibility: hidden;
 }
 
 @keyframes shine {
@@ -169,13 +144,15 @@ body {
 }
 
 /* ===========================
-   Interactive Components
+   6) ACTION BUTTONS
    =========================== */
 #action-buttons {
   opacity: 0;
   pointer-events: none;
   transition: opacity var(--transition-speed) ease;
+  display: flex;
   gap: 1rem;
+  margin-bottom: 2rem;
 }
 
 #action-buttons.loaded {
@@ -183,29 +160,29 @@ body {
   pointer-events: auto;
 }
 
-/* Transparent white-box styling for buttons & links */
-#action-buttons a,
-#action-buttons button {
-  padding: 0.75rem 1.5rem;
+/* White-box style for Buy Now, Ask Questions, etc. */
+.white-box {
   border: 2px solid var(--border-color);
+  background: transparent;
   color: var(--text-color);
-  background-color: transparent;
-  transition: background-color var(--transition-speed), transform 0.2s ease;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
   cursor: pointer;
-  text-decoration: none; /* remove underline on <a> */
+  transition: background-color var(--transition-speed), transform 0.2s ease;
 }
 
-#action-buttons a:hover,
-#action-buttons button:hover {
+.white-box:hover {
   background-color: var(--button-hover-bg);
   transform: translateY(-2px);
 }
 
-/* Q&A Container */
+/* ===========================
+   7) Q&A FORM
+   =========================== */
 .qa-container {
   position: relative;
   z-index: var(--z-index-qa);
-  width: min(100%, var(--qa-max-width));
+  width: min(100%, 400px);
   margin-top: 2rem;
   opacity: 0;
   transform: translateY(10px);
@@ -219,11 +196,10 @@ body {
 
 .qa-input {
   width: 100%;
-  padding: 0.75rem;
   margin-bottom: 1rem;
-  background-color: transparent;
   border: 2px solid var(--border-color);
-  color: var(--text-color);
+  background: transparent;
+  padding: 0.75rem;
   transition: box-shadow 0.2s ease;
 }
 
@@ -233,10 +209,9 @@ body {
 
 .qa-button {
   width: 100%;
-  padding: 0.75rem;
   border: 2px solid var(--border-color);
   background: transparent;
-  color: var(--text-color);
+  padding: 0.75rem;
   cursor: pointer;
   transition: background-color var(--transition-speed), transform 0.2s ease;
 }
@@ -252,7 +227,7 @@ body {
 }
 
 /* ===========================
-   Responsive Design
+   8) RESPONSIVE & REDUCED MOTION
    =========================== */
 @media (max-width: 768px) {
   html {
@@ -267,5 +242,15 @@ body {
   .background-video {
     width: 150%;
     height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  #animated-text {
+    animation: none !important;
+    background: var(--text-color) !important;
   }
 }
