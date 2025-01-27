@@ -5,31 +5,47 @@ document.addEventListener("DOMContentLoaded", () => {
     return;
   }
 
-  // Typing animation
-  const text = "Reflections of (You)";
+  const backgroundVideo = document.querySelector(".background-video");
   const textContainer = document.getElementById("animated-text");
+  const actionButtons = document.getElementById("action-buttons");
+
+  // 1) Wait until the video is ready to show its first frame
+  //    then fade it in and start the type animation.
+  backgroundVideo.addEventListener("loadeddata", () => {
+    // Fade in the video
+    backgroundVideo.style.opacity = "1";
+    
+    // Once the video is visible, start text typing
+    typeText();
+  });
+
+  // 2) Typing animation (called only after video is ready)
+  const text = "Reflections of (You)";
   let index = 0;
-  
+
   function typeText() {
+    // Make sure the text is visible before starting
+    textContainer.style.visibility = "visible";
+
     if (index < text.length) {
       requestAnimationFrame(() => {
         textContainer.textContent += text.charAt(index);
         index++;
-        // Longer pause on first character
+        // Slightly longer pause on the very first character
         setTimeout(typeText, index === 1 ? 1500 : 250);
       });
     } else {
-      document.getElementById("action-buttons")?.classList.add("loaded");
+      // Once typing is done, show the action buttons
+      actionButtons?.classList.add("loaded");
     }
   }
-  typeText();
 
   // Q&A Section
   const qaSection = document.getElementById("ask-section");
   const questionInput = document.getElementById("question-input");
   const answerOutput = document.getElementById("answer-output");
-  
-  // Toggle visibility
+
+  // Toggle Q&A visibility
   document.getElementById("ask-question-btn")?.addEventListener("click", () => {
     const isActive = qaSection.classList.toggle("active");
     qaSection.setAttribute("aria-hidden", !isActive);
@@ -59,7 +75,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     try {
       const controller = new AbortController();
-      // Set a timeout to abort fetch if it takes too long
+      // Abort if fetch takes more than 15 seconds
       setTimeout(() => controller.abort(), 15000);
 
       const response = await fetch("https://product-agent-backend.onrender.com/ask", {
@@ -87,6 +103,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
+  // Attach event listeners for form submission
   document.getElementById("submit-question-btn")?.addEventListener("click", handleSubmit);
   questionInput?.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
@@ -94,14 +111,11 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Performance / Data Saver
+  // Performance / Data Saver detection
   window.addEventListener("load", () => {
     if ("connection" in navigator) {
       if (navigator.connection.saveData || navigator.connection.effectiveType.includes("2g")) {
-        const backgroundVideo = document.querySelector(".background-video");
-        if (backgroundVideo) {
-          backgroundVideo.remove();
-        }
+        backgroundVideo.remove();
       }
     }
   });
