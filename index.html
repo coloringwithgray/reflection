@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Reflections</title>
   
   <!-- Link to external CSS -->
@@ -21,7 +21,6 @@
       muted
       playsinline
       preload="auto"
-    >
       <source src="reflection.mp4" type="video/mp4" />
       <source src="reflection.webm" type="video/webm" />
       <source src="reflection.ogv" type="video/ogg" />
@@ -36,9 +35,9 @@
       <a
         href="https://instagram.com/coloringwithgray"
         target="_blank"
-        rel="noopener noreferrer"
-      >
-        <span id="animated-text">Reflections</span>
+        rel="noopener noreferrer" <!-- Security enhancement -->
+        
+        <span id="animated-text"></span>
       </a>
     </header>
 
@@ -53,16 +52,17 @@
     <!-- Q&A SECTION -->
     <section id="ask-section" class="qa-container" aria-hidden="true">
       <label for="question-input" class="sr-only">Your Question</label>
-      <input
-        type="text"
-        id="question-input"
-        placeholder="Type your question here..."
-        class="qa-input"
-        aria-label="Type your question here"
-      />
+      <input type="text" id="question-input" placeholder="Type your question here..." class="qa-input" aria-label="Type your question here" />
       <button id="submit-question-btn" class="qa-button">Submit</button>
       <div id="answer-output" class="qa-answer" aria-live="polite"></div>
     </section>
   </main>
+
+  <!-- OPTIONAL: Scroll Prompt -->
+  <!-- Uncomment and implement if needed
+  <div class="scroll-prompt">
+    <p>Scroll down</p>
+  </div>
+  -->
 </body>
 </html>
