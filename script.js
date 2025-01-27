@@ -1,139 +1,108 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // 1. Detect if page is inside an iframe (portal) and add 'is-portal' class
-  const isPortal = window.self !== window.top;
-  if (isPortal) {
+  // Portal detection
+  if (window.self !== window.top) {
     document.body.classList.add("is-portal");
-    // Exit early since we don't need to initialize other functionalities
     return;
   }
 
-  // 2. Typed Text Configuration
+  // Typing animation
   const text = "Reflections of (You)";
-  let index = 0;
-  const speed = 250;   // Milliseconds between each character
-  const delay = 3000;  // Milliseconds delay before typing starts
   const textContainer = document.getElementById("animated-text");
-
-  /**
-   * Recursively types out the text one character at a time.
-   */
+  let index = 0;
+  
   function typeText() {
     if (index < text.length) {
-      textContainer.textContent += text.charAt(index);
-      index++;
-      setTimeout(typeText, speed);
+      requestAnimationFrame(() => {
+        textContainer.textContent += text.charAt(index);
+        index++;
+        // Longer pause on first character
+        setTimeout(typeText, index === 1 ? 1500 : 250);
+      });
     } else {
-      // Once typing is done, reveal the action buttons
-      const actionButtons = document.getElementById("action-buttons");
-      if (actionButtons) {
-        actionButtons.classList.add("loaded");
+      document.getElementById("action-buttons")?.classList.add("loaded");
+    }
+  }
+  typeText();
+
+  // Q&A Section
+  const qaSection = document.getElementById("ask-section");
+  const questionInput = document.getElementById("question-input");
+  const answerOutput = document.getElementById("answer-output");
+  
+  // Toggle visibility
+  document.getElementById("ask-question-btn")?.addEventListener("click", () => {
+    const isActive = qaSection.classList.toggle("active");
+    qaSection.setAttribute("aria-hidden", !isActive);
+    if (isActive) {
+      questionInput.focus({ preventScroll: true });
+    }
+  });
+
+  // Simple sanitization to prevent HTML injection
+  function sanitizeInput(str) {
+    const div = document.createElement("div");
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    const question = sanitizeInput(questionInput.value.trim());
+    
+    if (!question) {
+      answerOutput.textContent = "Please enter a valid question";
+      return;
+    }
+
+    answerOutput.textContent = "Thinking...";
+    answerOutput.setAttribute("aria-busy", "true");
+
+    try {
+      const controller = new AbortController();
+      // Set a timeout to abort fetch if it takes too long
+      setTimeout(() => controller.abort(), 15000);
+
+      const response = await fetch("https://product-agent-backend.onrender.com/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question }),
+        signal: controller.signal
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
       }
+
+      const data = await response.json();
+      answerOutput.textContent = data.reply || "No answer available";
+    } catch (error) {
+      if (error.name === "AbortError") {
+        answerOutput.textContent = "Request timed out. Please try again.";
+      } else {
+        answerOutput.textContent = "Error connecting to service. Click to retry.";
+        answerOutput.addEventListener("click", handleSubmit, { once: true });
+      }
+    } finally {
+      answerOutput.removeAttribute("aria-busy");
     }
   }
 
-  /**
-   * Initiates the typing effect after the specified delay.
-   */
-  function initiateTyping() {
-    setTimeout(typeText, delay);
-  }
+  document.getElementById("submit-question-btn")?.addEventListener("click", handleSubmit);
+  questionInput?.addEventListener("keypress", (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  });
 
-  // Start the typing animation
-  initiateTyping();
-
-  // 3. Toggle Q&A Section Visibility
-  const askBtn = document.getElementById('ask-question-btn');
-  const askSection = document.getElementById('ask-section');
-
-  if (askBtn && askSection) {
-    askBtn.addEventListener('click', () => {
-      const isActive = askSection.classList.toggle('active');
-      askBtn.setAttribute('aria-expanded', isActive);
-      askSection.setAttribute('aria-hidden', !isActive);
-    });
-  }
-
-  // 4. Handle Question Submission
-  const submitBtn = document.getElementById('submit-question-btn');
-  const questionInput = document.getElementById('question-input');
-  const answerOutput = document.getElementById('answer-output');
-
-  if (submitBtn && questionInput && answerOutput) {
-    /**
-     * Handles the submission of a question.
-     */
-    async function handleQuestionSubmission() {
-      const question = questionInput.value.trim();
-      if (!question) {
-        answerOutput.textContent = "Please enter a question.";
-        return;
-      }
-
-      answerOutput.textContent = "Thinking...";
-
-      try {
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => controller.abort(), 10000); // 10 seconds timeout
-
-        const response = await fetch('https://product-agent-backend.onrender.com/ask', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ question }),
-          signal: controller.signal,
-        });
-
-        clearTimeout(timeoutId);
-
-        if (!response.ok) {
-          throw new Error(`Server responded with status ${response.status}`);
-        }
-
-        const data = await response.json();
-        answerOutput.textContent = data.reply || "Sorry, I couldn't get an answer.";
-      } catch (error) {
-        if (error.name === 'AbortError') {
-          answerOutput.textContent = "Request timed out. Please try again.";
-        } else {
-          console.error(error);
-          answerOutput.textContent = "Error connecting to the server.";
+  // Performance / Data Saver
+  window.addEventListener("load", () => {
+    if ("connection" in navigator) {
+      if (navigator.connection.saveData || navigator.connection.effectiveType.includes("2g")) {
+        const backgroundVideo = document.querySelector(".background-video");
+        if (backgroundVideo) {
+          backgroundVideo.remove();
         }
       }
     }
-
-    // Event listener for the submit button
-    submitBtn.addEventListener('click', handleQuestionSubmission);
-
-    // Allow submission via Enter key
-    questionInput.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        handleQuestionSubmission();
-      }
-    });
-  }
-
-  // 5. Handle Scroll Prompt Fade-In (Optional)
-  // Uncomment and implement if needed
-  /*
-  const scrollPrompt = document.querySelector(".scroll-prompt");
-  if (scrollPrompt) {
-    let isVisible = false;
-    window.addEventListener(
-      "scroll",
-      () => {
-        const scrollPosition = window.scrollY || document.documentElement.scrollTop;
-        const windowHeight = window.innerHeight || document.documentElement.clientHeight;
-
-        if (scrollPosition > windowHeight / 2 && !isVisible) {
-          scrollPrompt.classList.add("visible");
-          isVisible = true;
-        } else if (scrollPosition <= windowHeight / 2 && isVisible) {
-          scrollPrompt.classList.remove("visible");
-          isVisible = false;
-        }
-      },
-      { passive: true }
-    );
-  }
-  */
+  });
 });
